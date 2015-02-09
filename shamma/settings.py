@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'bootstrap3',
+    'accounts',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -69,7 +70,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fa-ir'
 
 TIME_ZONE = 'UTC'
 
@@ -78,6 +79,16 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+EMAIL_HOST = 'smtp.gmail.com'
+
+EMAIL_HOST_USER = 'technical.presenters@gmail.com'
+
+EMAIL_HOST_PASSWORD = 'technicalPresenters'
+
+EMAIL_PORT = 587
+
+EMAIL_USE_TLS = True
 
 STATIC_URL = '/static/'
 
