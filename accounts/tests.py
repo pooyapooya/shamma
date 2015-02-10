@@ -36,7 +36,6 @@ class UserModelTest(TestCase):
         self.assertEqual(user.is_active, False)
         d = Client()
         response = d.get('/accounts/confirm/' + user.userprofile.activation_key + '/')
-        print(response)
         user = User.objects.get(username__contains="sjn")
         self.assertEqual(user.is_active, True)
         g = Client()
@@ -47,6 +46,21 @@ class UserModelTest(TestCase):
         response = f.post('/accounts/login/',
                           {'username': 'sjn', 'password': 'asdfasdf'})
         self.assertEqual(302, response.status_code)
+
+    def test_register_user_logout(self):
+        c = Client()
+        response = c.post('/accounts/register/',
+                          {'username': 'sjn', 'password': 'asdfasdf', 'email': 'sajad22@gmail.com'})
+        user = User.objects.get(username__contains="sjn")
+        d = Client()
+        response = d.get('/accounts/confirm/' + user.userprofile.activation_key + '/')
+        user = User.objects.get(username__contains="sjn")
+        f = Client()
+        response = f.post('/accounts/login/',
+                          {'username': 'sjn', 'password': 'asdfasdf'})
+        g = Client()
+        response = g.post('/accounts/logout/', {})
+        self.assertEqual(301, response.status_code)
 
 
 
