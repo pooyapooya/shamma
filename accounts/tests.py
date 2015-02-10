@@ -62,6 +62,25 @@ class UserModelTest(TestCase):
         response = g.post('/accounts/logout/', {})
         self.assertEqual(301, response.status_code)
 
+    def test_register_user_complete_profile(self):
+        c = Client()
+        response = c.post('/accounts/register/',
+                          {'username': 'sjn', 'password': 'asdfasdf', 'email': 'sajad22@gmail.com'})
+        user = User.objects.get(username__contains="sjn")
+        d = Client()
+        response = d.get('/accounts/confirm/' + user.userprofile.activation_key + '/')
+        user = User.objects.get(username__contains="sjn")
+        f = Client()
+        response = f.post('/accounts/login/',
+                          {'username': 'sjn', 'password': 'asdfasdf'})
+
+        user = User.objects.get(username__contains="sjn")
+        self.assertFalse(user.userprofile.is_complete_profile())
+        response = f.post('/accounts/edit/', {'national_code': '1251355434', 'mobile_phone': '09123654530'})
+
+        user = User.objects.get(username__contains="sjn")
+        self.assertTrue(user.userprofile.is_complete_profile())
+
 
 
 

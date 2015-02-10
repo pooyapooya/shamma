@@ -41,6 +41,7 @@ class UserProfileEditForm(forms.ModelForm):
             u.set_password(new_password)
         u.save()
         profile = super(UserProfileEditForm, self).save(*args,**kwargs)
+        print('kar anjam shod')
         return profile
 
     def has_changed_password(self):
