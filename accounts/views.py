@@ -44,6 +44,7 @@ class LogoutView(RedirectView):
 
     def get(self, request, *args, **kwargs):
         logout(request)
+        messages.info(request, u'خروج شما موفقیت آمیز بود.')
         return super(LogoutView, self).get(request, *args, **kwargs)
 
 
