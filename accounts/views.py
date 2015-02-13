@@ -30,10 +30,10 @@ class UserLogin(TemplateView):
                 login(request, user)
                 return HttpResponseRedirect('/')
             else:
-                messages.error(request, u'حساب کاربری شما غیرفعال می‌باشد.')
+                messages.error(request, u'Your account is inactive')
                 return render_to_response(self.template_name, {}, RequestContext(request))
         else:
-            messages.error(request, u'نام کاربری یا رمز عبور اشتباه می‌باشد.')
+            messages.error(request, u'Username or Password is wrong')
             return render_to_response(self.template_name, {}, RequestContext(request))
 
 
@@ -42,7 +42,7 @@ class LogoutView(RedirectView):
 
     def get(self, request, *args, **kwargs):
         logout(request)
-        messages.info(request, u'خروج شما موفقیت آمیز بود.')
+        messages.info(request, u'You have successfully logged out')
         return super(LogoutView, self).get(request, *args, **kwargs)
 
 
@@ -118,14 +118,14 @@ class RegisterConfirm(TemplateView):
 
         # check if the activation key has expired, if it has then render confirm_expired.html
         if user_profile.key_expires < timezone.now():
-            messages.error(request, u'مدت اعتبار لینک به پایان رسیده است')
+            messages.error(request, u'Link has expired')
             return HttpResponseRedirect('/', {})
 
         #if the key hasn't expired save user and set him as active and render some template to confirm activation
         user = user_profile.user
         user.is_active = True
         user.save()
-        messages.info(request, u'حساب کاربری شما فعال گردید')
+        messages.info(request, u'Your account has activated')
         return HttpResponseRedirect('/')
 
 
@@ -142,9 +142,9 @@ class AccountsEdit(UpdateView):
     def form_valid(self, form):
         if form.has_changed_password():
             self.changed_password = True
-            messages.success(self.request, u'رمز عبور شما با موفقیت تغییر کرد. لطفا دوباره وارد شوید')
+            messages.success(self.request, u'Your password has changed. Please log in again')
         else:
-            messages.success(self.request, u'حساب کاربری شما با موفقیت به روزرسانی شد')
+            messages.success(self.request, u'Your profile has updated')
         return super(AccountsEdit, self).form_valid(form)
 
     def get_success_url(self):
