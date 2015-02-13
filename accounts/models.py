@@ -2,7 +2,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
-import datetime
+from django.utils.timezone import now
 
 
 class UserProfile(models.Model):
@@ -18,7 +18,7 @@ class UserProfile(models.Model):
                                      verbose_name=u'کد ملی')
 
     activation_key = models.CharField(max_length=40, blank=True)
-    key_expires = models.DateTimeField(default=datetime.date.today())
+    key_expires = models.DateTimeField(default=now)
 
     def __unicode__(self):
         return self.user.username
