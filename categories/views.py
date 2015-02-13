@@ -1,7 +1,7 @@
 import json
 from django.core import serializers
 from django.db.models.query import QuerySet
-from django.http.response import HttpResponse, StreamingHttpResponse
+from django.http.response import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
@@ -32,4 +32,4 @@ class CategoryView(TemplateView):
     def get(self, request, *args, **kwargs):
         data = Topic.objects.all()
         result = query_to_json(data)
-        return StreamingHttpResponse(result)
+        return HttpResponse(result)

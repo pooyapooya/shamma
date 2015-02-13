@@ -3,6 +3,7 @@ from django.test import TestCase
 
 # Create your tests here.
 from django.test.client import RequestFactory, Client
+import json
 from categories.models import Topic
 
 
@@ -26,11 +27,14 @@ class GetCategoriesJson(TestCase):
         par = Topic.objects.create(name='Agile', parent=None)
         Topic.objects.create(name='Scrum', parent=par)
 
-    def check_json(self):
-        # rf = RequestFactory()
-        # get_request = rf.get('/get_data/')
-        # print json
+    def test_get_data(self):
         c = Client()
-        json = c.get('/categories/get_data/')
-        print json.body
-        self.assert_('Ok.')
+        response = c.get('/categories/get_data/')
+        json_response = json.loads(response.content)
+        self.assertEqual(len(json_response), 2)
+
+        agile = (topic for topic in json_response if topic['name'] == 'Agile').next()
+        self.assertEqual(agile['parent'], None)
+
+        scrum = (topic for topic in json_response if topic['name'] == 'Scrum').next()
+        self.assertEqual(scrum['parent'], agile['id'])
