@@ -64,7 +64,7 @@ class Register(TemplateView):
             email = user.email
             salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
             activation_key = hashlib.sha1(salt + email).hexdigest()
-            key_expires = datetime.datetime.today() + datetime.timedelta(2)
+            key_expires = timezone.now() + datetime.timedelta(2)
 
             user.save()
 
