@@ -29,6 +29,15 @@ def generate():
         email=('%s@gmail.com' % username for username in user_names),
     )
 
+    topics = mommy.make_many(
+        'categories.Topic',
+        2,
+        name=iter(['Agile', 'Scrum']),
+    )
+    topics[1].parent = topics[0]
+    topics[1].save()
+
+
 
 def run():
     try:
