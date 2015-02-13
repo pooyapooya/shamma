@@ -38,7 +38,6 @@ def generate():
     topics[1].save()
 
 
-
 def run():
     try:
         os.remove(settings.DATABASES['default']['NAME'])
