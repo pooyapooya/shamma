@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'bootstrap3',
     'accounts',
+    'categories',
 )
 
 MIDDLEWARE_CLASSES = (

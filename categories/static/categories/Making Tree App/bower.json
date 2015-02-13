@@ -1,0 +1,16 @@
+{
+  "name": "SHAMMA",
+  "version": "0.0.0",
+  "homepage": "https://github.com/mhsekhavat/shamma",
+  "authors": [
+    "pooya <pooya.mosaddegh72@gmail.com>"
+  ],
+  "description": "only ui",
+  "license": "none",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "*",
+    "jquery": "*",
+    "bootstrap-sass-official": "*"
+  }
+}
