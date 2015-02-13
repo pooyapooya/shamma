@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, render_to_response
 from django.contrib.auth import authenticate, login, logout
@@ -9,7 +8,6 @@ from django.views.generic.base import TemplateView, RedirectView
 from django.views.generic.edit import UpdateView
 from accounts.forms import UserForm, UserProfileForm, UserProfileEditForm
 from accounts.models import UserProfile
-from django.contrib import messages
 from django.core.mail import send_mail
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
@@ -83,7 +81,7 @@ class Register(TemplateView):
             # Send email with activation key
             email_subject = 'Account confirmation'
             email_body = "Hey %s, thanks for signing up. To activate your account, click this link within 48hours http://127.0.0.1:8000/accounts/confirm/%s" % (
-            username, activation_key)
+                username, activation_key)
 
             send_mail(email_subject, email_body, 'shamma@gmail.com',
                       [email], fail_silently=False)
@@ -118,7 +116,7 @@ class RegisterConfirm(TemplateView):
         # check if there is UserProfile which matches the activation key (if not then display 404)
         user_profile = get_object_or_404(UserProfile, activation_key=kwargs['activation_key'])
 
-        #check if the activation key has expired, if it has then render confirm_expired.html
+        # check if the activation key has expired, if it has then render confirm_expired.html
         if user_profile.key_expires < timezone.now():
             messages.error(request, u'مدت اعتبار لینک به پایان رسیده است')
             return HttpResponseRedirect('/', {})
@@ -129,6 +127,7 @@ class RegisterConfirm(TemplateView):
         user.save()
         messages.info(request, u'حساب کاربری شما فعال گردید')
         return HttpResponseRedirect('/')
+
 
 class AccountsEdit(UpdateView):
     template_name = 'accounts/accounts_edit.html'

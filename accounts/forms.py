@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from django.contrib.auth.tests.custom_user import CustomUserNonUniqueUsername
 from django.forms.models import fields_for_model, model_to_dict
 from models import UserProfile
 from django.contrib.auth.models import User
 
+
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(), label=u'گذرواژه')
+
     class Meta:
         model = User
         fields = ('username', 'email', 'password')
@@ -29,7 +30,8 @@ class UserProfileEditForm(forms.ModelForm):
         model = UserProfile
         exclude = ('user', 'activation_key', 'key_expires', )
 
-    new_password = forms.CharField(widget=forms.PasswordInput, required=False, label=u'گذرواژه‌ی جدید', help_text=u'اگر نیاز به تغییر گذرواژه ندارید، این قسمت را خالی بگذارید')
+    new_password = forms.CharField(widget=forms.PasswordInput, required=False, label=u'گذرواژه‌ی جدید',
+                                   help_text=u'اگر نیاز به تغییر گذرواژه ندارید، این قسمت را خالی بگذارید')
 
     def save(self, *args, **kwargs):
         u = self.instance.user
@@ -40,12 +42,8 @@ class UserProfileEditForm(forms.ModelForm):
         if new_password:
             u.set_password(new_password)
         u.save()
-        profile = super(UserProfileEditForm, self).save(*args,**kwargs)
-        print('kar anjam shod')
+        profile = super(UserProfileEditForm, self).save(*args, **kwargs)
         return profile
 
     def has_changed_password(self):
         return self.cleaned_data['new_password'] != ''
-
-    #nam nameKHanevadegi adress email password
-

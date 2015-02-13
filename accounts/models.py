@@ -24,6 +24,4 @@ class UserProfile(models.Model):
         return self.user.username
 
     def is_complete_profile(self):
-        if ( len(self.national_code) > 0 and len(self.mobile_phone)):
-            return True
-        return False
+        return len(self.national_code) > 0 and len(self.mobile_phone)
