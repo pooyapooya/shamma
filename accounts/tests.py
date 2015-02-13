@@ -80,9 +80,3 @@ class UserModelTest(TestCase):
 
         user = User.objects.get(username__contains="sjn")
         self.assertTrue(user.userprofile.is_complete_profile())
-
-
-
-
-
-
