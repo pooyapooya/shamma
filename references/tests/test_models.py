@@ -17,7 +17,7 @@ class ReferencesModelsTests(TestCase):
         self.assertIn(('book', BookReference), Reference.get_type_mapping().items())
 
     def test_can_create_reference(self):
-        with self.assertRaises(TypeError, msg="should prevent creating abstrace reference"):
+        with self.assertRaises(TypeError, msg="should prevent creating abstract reference"):
             Reference.objects.create(
                 name='Book 1',
                 url='http://book1.com',

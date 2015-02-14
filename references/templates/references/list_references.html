@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+{% block content %}
+    <div class="container">
+    <h1> References
+        <a href="{% url 'create_reference' %}" class="btn btn-success pull-right">
+            {% bootstrap_icon 'plus' %}
+            Create Reference
+        </a>
+    </h1>
+    <div class="list-group">
+        {% for object in object_list %}
+            <a href="{{ object.get_absolute_url }}" class="list-group-item">
+                {{ object.name }}
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

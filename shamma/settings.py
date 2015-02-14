@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'references',
     'polymorphic',
     'django_nose',
+    'tinymce',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -95,13 +96,14 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'staticfiles'),
 )
 
 THUMBNAIL_ALIASES = {
@@ -121,3 +123,4 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = [
     '--with-coverage',
 ]
+

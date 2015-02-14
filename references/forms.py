@@ -1,14 +1,18 @@
 from django import forms
 from django.forms import model_to_dict
+from tinymce.widgets import TinyMCE
 from references.models import Reference
 
 
 class CreateReferenceForm(forms.ModelForm):
     class Meta:
         model = Reference
-        fields = ('name', 'url', 'description', 'reference_type')
+        fields = ('reference_type', 'name', 'url', 'description',)
+        widgets = {
+            'description': TinyMCE(),
+        }
 
-    reference_type = forms.ChoiceField(choices=Reference.get_type_choices())
+    reference_type = forms.ChoiceField(choices=Reference.get_type_choices(), widget=forms.RadioSelect())
 
     def save(self, commit=True):
         ret = super(CreateReferenceForm, self).save(commit=False)

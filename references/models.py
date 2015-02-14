@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse_lazy
 from django.db import models
 from polymorphic.polymorphic_model import PolymorphicModel
 
@@ -28,6 +29,9 @@ class Reference(PolymorphicModel):
     @staticmethod
     def get_type_mapping():
         return {cls.get_type_id(): cls for cls in Reference.get_types()}
+
+    def get_absolute_url(self):
+        return reverse_lazy('reference_detail', kwargs={'pk': self.id})
 
 
 class FilmReference(Reference):
