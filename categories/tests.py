@@ -7,11 +7,11 @@ import json
 from categories.models import Topic
 
 
-class TopicTestCase(TestCase):
+class TopicTestCaseTest(TestCase):
     def setUp(self):
-        pass
+        super(TopicTestCaseTest, self).setUp()
 
-    def topic_can_create_and_delete(self):
+    def test_topic_can_create_and_delete(self):
         Topic.objects.create(name='Agile', parent=None)
         self.assert_(True, 'Agile topic created successfully')
         topics = Topic.objects.get(name='Agile')
@@ -21,9 +21,9 @@ class TopicTestCase(TestCase):
         self.assertFalse(topics, 'Everything is correct')
 
 
-class GetCategoriesJson(TestCase):
+class GetCategoriesJsonTest(TestCase):
     def setUp(self):
-        super(GetCategoriesJson, self).setUp()
+        super(GetCategoriesJsonTest, self).setUp()
         par = Topic.objects.create(name='Agile', parent=None)
         Topic.objects.create(name='Scrum', parent=par)
 
