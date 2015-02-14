@@ -1,15 +1,15 @@
 language: python
 branches:
-only:
-- master
-- develop
+  only:
+    - master
+    - develop
 python:
-- "2.7"
+  - "2.7"
 # command to install dependencies
 env:
-- DJANGO_VERSION=1.7.4
+  - DJANGO_VERSION=1.7.4
 install:
-- "pip install -r requirements.txt"
+  - "pip install -r requirements.txt"
 # command to run tests
 script:
-./manage.py test
+  ./manage.py test
