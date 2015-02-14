@@ -10,9 +10,6 @@ env:
   - DJANGO_VERSION=1.7.4
 install:
   - "pip install -r requirements.txt"
-  - pip install coveralls
 # command to run tests
 script:
-  coverage run --source='.' manage.py test
-after_success:
-  coveralls
+  ./manage.py test
