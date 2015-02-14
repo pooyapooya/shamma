@@ -41,6 +41,9 @@ INSTALLED_APPS = (
     'bootstrap3',
     'accounts',
     'categories',
+    'references',
+    'polymorphic',
+    'django_nose',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -110,3 +113,12 @@ THUMBNAIL_ALIASES = {
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+
+# Use nose to run all tests
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+# Tell nose to measure coverage on the 'foo' and 'bar' apps
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=foo,bar',
+]
