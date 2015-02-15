@@ -40,6 +40,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'django.contrib.sites',
+    'django.contrib.comments',
     'bootstrap3',
     'accounts',
     'categories',
@@ -133,4 +135,6 @@ NOSE_ARGS = [
 SUIT_CONFIG = {
     'ADMIN_NAME': 'Shamma'
 }
+
+SITE_ID = 1
 

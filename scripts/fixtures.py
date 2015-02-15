@@ -15,6 +15,8 @@ def generate():
     admin = User.objects.create_superuser(
         username='admin',
         password='admin',
+        first_name='Admin',
+        last_name='Adminian',
         email='a@b.com',
     )
 

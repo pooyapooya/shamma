@@ -1,0 +1,19 @@
+{% load comments %}
+{% load bootstrap3 %}
+{% get_comment_list for object as comment_list %}
+{% for comment in comment_list %}
+<div class="media">
+    <div class="media-left">
+        {{ comment.submit_date|date:"M d" }}
+    </div>
+    <div class="media-body">
+        <h4 class="media-heading"> {{ comment.user.get_full_name }} </h4>
+        {{ comment.comment }}
+        {% with comment as object %}
+            {% include 'references/comment_form.html' %}
+            {% include 'references/comment_list.html' %}
+        {% endwith %}
+    </div>
+</div>
+{% endfor %}
+

@@ -20,4 +20,5 @@ urlpatterns = patterns(
     url(r'^categories/', include(categories.urls)),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^comments/', include('django.contrib.comments.urls')),
 )

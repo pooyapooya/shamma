@@ -1,0 +1,17 @@
+{% load comments %}
+{% load bootstrap3 %}
+{% if user.is_authenticated %}
+
+<form action="{% comment_form_target %}" method="POST" class="comment-form">
+    {% get_comment_form for object as form %}
+        {% csrf_token %}
+        {{ form.content_type }}
+        {{ form.object_pk }}
+        {{ form.timestamp }}
+        {{ form.security_hash }}
+        {% bootstrap_field form.comment %}
+        <input type="hidden" name="next" value="{% url 'reference_detail' reference.id %}"/>
+        <input type="submit" value="Add comment" id="id_submit"/>
+    </form>
+
+{% endif %}
