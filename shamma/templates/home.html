@@ -1,6 +1,17 @@
 {% extends 'base.html' %}
 {% load bootstrap3 %}
 
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{{ STATIC_URL }}categories/Making Tree App/mbraak-jqTree-99c93d1/jqtree.css">
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script src="{{ STATIC_URL }}categories/Making Tree App/mbraak-jqTree-99c93d1/tree.jquery.js"></script>
+    <script src="{{ STATIC_URL }}categories/show_categories_tree.js"></script>
+{% endblock %}
+
 {% block content %}
     <div class="jumbotron">
         <div class="container">
@@ -24,6 +35,12 @@
     </div>
 
     <div class="container">
-    Welcome
+        <div class="row">
+
+            <div class="row-md-6">
+                   <div class="jqtree-tree" id="tree1"></div>
+            </div>
+
+        </div>
     </div>
 {% endblock %}

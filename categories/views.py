@@ -1,3 +1,4 @@
+from collections import defaultdict
 import json
 from django.core import serializers
 from django.db.models.query import QuerySet
@@ -6,6 +7,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.views.generic.base import TemplateView
+from django.views.generic.detail import DetailView
 from categories.models import Topic
 
 
@@ -27,9 +29,14 @@ def query_to_json(queryset):
     return result
 
 
-class CategoryView(TemplateView):
-
+class CategoryDataView(TemplateView):
     def get(self, request, *args, **kwargs):
         data = Topic.objects.all()
         result = query_to_json(data)
         return HttpResponse(result)
+
+
+class CategoryView(DetailView):
+    model = Topic
+    template_name = 'categories/category.html'
+

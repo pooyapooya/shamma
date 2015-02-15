@@ -9,6 +9,9 @@ class Reference(PolymorphicModel):
     description = models.TextField(blank=True)
     type_caption = 'AbstractReference'
 
+    def __unicode__(self):
+        return self.name
+
     def save(self, *args, **kwargs):
         if type(self) == Reference:
             raise TypeError('Reference is abstract class. Use inherited classes instead')

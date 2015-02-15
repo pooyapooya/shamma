@@ -15,14 +15,14 @@ findChildrens = function (dictionary, parent) {
     return roots;
 };
 
-makeCorrect = function(data){
+makeCorrect = function (data) {
     var correct = findChildrens(data, null);
     return correct;
 };
 
-makeTree = function(){
+makeTree = function () {
 
-    $.getJSON('/categories/get_data/', function(data){
+    $.getJSON('/categories/get_data/', function (data) {
         console.log(data);
         var treeData = makeCorrect(data);
         $('#tree1').tree({
@@ -31,9 +31,9 @@ makeTree = function(){
     });
 };
 
-reloadTree = function(){
+reloadTree = function () {
 
-    $.getJSON('/categories/get_data/', function(data){
+    $.getJSON('/categories/get_data/', function (data) {
         console.log(data);
         var treeData = makeCorrect(data);
 //        $('#tree1').tree({
@@ -43,6 +43,15 @@ reloadTree = function(){
     });
 };
 
-$(function() {
+$(function () {
     makeTree();
+    
+    $('#tree1').bind(
+        'tree.click',
+        function (event) {
+            // The clicked node is 'event.node'
+            var node = event.node;
+            window.location = '/categories/' + node.id;
+        }
+    );
 });
