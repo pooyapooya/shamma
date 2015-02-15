@@ -49,42 +49,40 @@ class LogoutView(RedirectView):
 class Register(TemplateView):
     registered = False
 
+    def generate_key(self, email):
+        salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
+        activation_key = hashlib.sha1(salt + email).hexdigest()
+        key_expires = timezone.now() + datetime.timedelta(2)
+        return activation_key, key_expires
+
+    def send_activation_email(self, activation_key, email, username):
+        email_subject = 'Account confirmation'
+        email_body = "Hey %s, thanks for signing up. To activate your account, click this link within 48hours http://127.0.0.1:8000/accounts/confirm/%s" % (
+            username, activation_key)
+        send_mail(email_subject, email_body, 'shamma@gmail.com',
+                  [email], fail_silently=False)
+
+    def process_valid_forms(self, profile_form, user_form):
+        user = user_form.save()
+        user.set_password(user.password)
+        user.is_active = False
+        user.save()
+        username = user.username
+        email = user.email
+        activation_key, key_expires = self.generate_key(email)
+        profile = profile_form.save(commit=False)
+        profile.user = user
+        profile.activation_key = activation_key
+        profile.key_expires = key_expires
+        profile.save()
+        self.send_activation_email(activation_key, email, username)
+
     def post(self, request):
         user_form = UserForm(data=request.POST)
         profile_form = UserProfileForm(data=request.POST)
 
         if user_form.is_valid() and profile_form.is_valid():
-            user = user_form.save()
-
-            user.set_password(user.password)
-
-            user.is_active = False
-
-            username = user.username
-            email = user.email
-            salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
-            activation_key = hashlib.sha1(salt + email).hexdigest()
-            key_expires = timezone.now() + datetime.timedelta(2)
-
-            user.save()
-
-            profile = profile_form.save(commit=False)
-            profile.user = user
-
-            profile.activation_key = activation_key
-            profile.key_expires = key_expires
-
-            profile.save()
-
-            registered = True
-
-            # Send email with activation key
-            email_subject = 'Account confirmation'
-            email_body = "Hey %s, thanks for signing up. To activate your account, click this link within 48hours http://127.0.0.1:8000/accounts/confirm/%s" % (
-                username, activation_key)
-
-            send_mail(email_subject, email_body, 'shamma@gmail.com',
-                      [email], fail_silently=False)
+            self.process_valid_forms(profile_form, user_form)
 
         else:
             print user_form.errors, profile_form.errors
