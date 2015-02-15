@@ -1,3 +1,4 @@
 from django.contrib import admin
+from references.models import Reference
 
-# Register your models here.
+admin.site.register(Reference)

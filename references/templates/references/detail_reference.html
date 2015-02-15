@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h3>
+                {{ object.name }}
+                <a href="{{ object.url }}" class="btn btn-primary btn-small pull-right"> Link </a>
+            </h3>
+
+            <div class="well">
+                {{ object.description | safe }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
