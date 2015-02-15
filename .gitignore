@@ -40,7 +40,7 @@ nosetests.xml
 /.idea/
 
 #Django
-/media/
-/static/
-/db.sqlite3
+/shamma/media/
+/shamma/static/
+/shamma/db.sqlite3
 .~*

@@ -41,12 +41,10 @@ def generate():
 def run():
     try:
         os.remove(settings.DATABASES['default']['NAME'])
-        call_command('migrate')
-        generate()
     except OSError:
         pass
-    except Exception:
-        traceback.print_exc()
+    call_command('migrate')
+    generate()
 
 
 if __name__ == '__main__':
