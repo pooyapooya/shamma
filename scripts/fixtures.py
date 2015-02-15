@@ -23,8 +23,8 @@ def generate():
         User,
         len(user_names),
         username=iter(user_names),
-        first_name=iter(username.capitalize for username in user_names),
-        last_name=iter(username + 'an' for username in user_names),
+        first_name=iter(username.capitalize() for username in user_names),
+        last_name=iter(username.capitalize() + 'an' for username in user_names),
         email=('%s@gmail.com' % username for username in user_names),
     )
     for user in users:

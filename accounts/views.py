@@ -30,7 +30,7 @@ class UserLogin(TemplateView):
         if user:
             if user.is_active:
                 login(request, user)
-                return HttpResponseRedirect(request.GET['next'])
+                return HttpResponseRedirect(request.GET.get('next', '/'))
             else:
                 messages.error(request, u'Your account is inactive')
                 return render_to_response(self.template_name, {}, RequestContext(request))
@@ -121,7 +121,7 @@ class RegisterConfirm(TemplateView):
             messages.error(request, u'Link has expired')
             return HttpResponseRedirect('/', {})
 
-        #if the key hasn't expired save user and set him as active and render some template to confirm activation
+        # if the key hasn't expired save user and set him as active and render some template to confirm activation
         user = user_profile.user
         user.is_active = True
         user.save()
