@@ -23,11 +23,5 @@ class UserProfile(models.Model):
     def __unicode__(self):
         return self.user.username
 
-    def save(self, *args, **kwargs):
-        super(UserProfile, self).save(*args, **kwargs)
-        if len(self.national_code) > 0 and len(self.mobile_phone):
-            self.user.is_staff = True
-            self.user.save()
-
     def is_complete_profile(self):
-        return self.user.is_staff
+        return len(self.national_code) > 0 and len(self.mobile_phone)
