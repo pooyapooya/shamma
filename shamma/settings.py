@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -30,6 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = (
+    'suit',
     'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -61,6 +63,9 @@ ROOT_URLCONF = 'shamma.urls'
 
 WSGI_APPLICATION = 'shamma.wsgi.application'
 
+TEMPLATE_CONTEXT_PROCESSORS = TCP + (
+    'django.core.context_processors.request',
+)
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
@@ -123,4 +128,8 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = [
     '--with-coverage',
 ]
+
+SUIT_CONFIG = {
+    'ADMIN_NAME': 'Shamma'
+}
 

@@ -18,8 +18,10 @@ import hashlib, datetime, random
 class UserLogin(TemplateView):
     template_name = 'accounts/accounts_login.html'
 
-    def get(self, request, *args, **kwargs):
-        return render_to_response(self.template_name, {}, RequestContext(self.request))
+    def get_context_data(self, **kwargs):
+        ret = super(UserLogin, self).get_context_data(**kwargs)
+        ret['redirect_url'] = self.request.GET.get('next', '/')
+        return ret
 
     def post(self, request):
         username = request.POST['username']
@@ -28,7 +30,7 @@ class UserLogin(TemplateView):
         if user:
             if user.is_active:
                 login(request, user)
-                return HttpResponseRedirect('/')
+                return HttpResponseRedirect(request.GET['next'])
             else:
                 messages.error(request, u'Your account is inactive')
                 return render_to_response(self.template_name, {}, RequestContext(request))
@@ -134,7 +136,7 @@ class AccountsEdit(UpdateView):
     changed_password = False
 
     def get_object(self, queryset=None):
-        user_profile, created = UserProfile.objects.get_or_create(user=self.request.user);
+        user_profile, created = UserProfile.objects.get_or_create(user=self.request.user)
         return user_profile
 
     def form_valid(self, form):

@@ -20,7 +20,19 @@
     {% endblock %}
 </head>
 <body>
-{% include 'header.html' %}
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{% url 'homepage' %}">
+                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                Shamma
+            </a>
+        </div>
+
+        {% include 'header.html' %}
+    </div>
+</nav>
+
 <div class="container">
     {% bootstrap_messages %}
 </div>

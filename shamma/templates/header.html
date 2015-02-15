@@ -1,53 +1,43 @@
 {% load bootstrap3 %}
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="{% url 'homepage' %}">
-                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-                Shamma
+<div class="nav navbar-nav">
+    <li class="active header-column header-content">
+        <a href="{% url 'reference_list' %}">
+            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+            References
+        </a>
+    </li>
+</div>
+<div class="nav navbar-nav pull-right">
+    {% if user.is_authenticated %}
+        <li class="active header-column header-content">
+            <a href="{% url 'accounts_edit' %}">
+                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+
+                Edit Profile ({{ user.username }})
+
             </a>
-        </div>
-        <div class="nav navbar-nav">
-            <li class="active">
-                <a href="{% url 'reference_list' %}">
-                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-                    References
-                </a>
-            </li>
-        </div>
-        <div class="nav navbar-nav pull-right">
-            {% if user.is_authenticated %}
-                <li class="active">
-                    <a href="{% url 'accounts_edit' %}">
-                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+        </li>
+        <li class="active header-column">
+            <a href="{% url 'logout' %}">
+                <span class="glyphicon glyphicon-log-out" aria-hidden="true"/>
 
-                        Edit Profile ({{ user.username }})
+                Log out
+            </a>
+        </li>
+    {% else %}
+        <li class="active header-column">
+            <a href="{% url 'login' %}">
+                <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
+                Sign In
+            </a>
+        </li>
+        <li class="active header-column">
+            <a href="{% url 'register' %}">
+                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                Register
+            </a>
+        </li>
 
-                    </a>
-                </li>
-                <li class="active">
-                    <a href="{% url 'logout' %}">
-                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"/>
-
-                        Log out
-                    </a>
-                </li>
-            {% else %}
-                <li class="active">
-                    <a href="{% url 'login' %}">
-                        <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
-                        Sign In
-                    </a>
-                </li>
-                <li class="active">
-                    <a href="{% url 'register' %}">
-                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                        Register
-                    </a>
-                </li>
-
-            {% endif %}
-        </div>
-    </div>
-</nav>
+    {% endif %}
+</div>
